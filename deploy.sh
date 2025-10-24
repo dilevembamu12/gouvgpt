@@ -11,6 +11,12 @@ set -e
 HOST_PORT=$1
 CONTAINER_NAME=$2
 
+# NOUVEAU : Correction pour les fins de ligne Windows (\r)
+# Cela supprime les caractères \r parasites qui peuvent être ajoutés
+# si le fichier est édité sur Windows.
+HOST_PORT=${HOST_PORT//$'\r'/}
+CONTAINER_NAME=${CONTAINER_NAME//$'\r'/}
+
 # Variables statiques
 IMAGE_NAME="gouv-gpt-app"
 CONTAINER_PORT=3000 # Port interne de l'application Node.js
@@ -47,3 +53,4 @@ docker run -d \
 echo "--- Étape 4/4 : Déploiement terminé !"
 echo "Votre application GouvGPT est maintenant accessible à l'adresse :"
 echo "http://localhost:$HOST_PORT"
+
