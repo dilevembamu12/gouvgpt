@@ -1,0 +1,9 @@
+# Ignorer les dépendances locales (elles seront installées dans le conteneur)
+node_modules
+
+# Ignorer les logs
+npm-debug.log
+*.log
+
+# Ignorer les fichiers de configuration locaux
+.env
