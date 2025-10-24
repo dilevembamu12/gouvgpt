@@ -1,0 +1,31 @@
+{
+  "lang": "fr",
+  "title": "GouvGPT.com - Bientôt Disponible",
+  "headline": "Bientôt Disponible",
+  "description": "Le portail mondial unifié pour les assistants IA et chatbots gouvernementaux.",
+  "notifyLabel": "Soyez notifié(e) lors du lancement officiel :",
+  "emailPlaceholder": "Votre adresse e-mail",
+  "notifyButton": "M'avertir",
+  "footerText": "© 2025 GouvGPT.com. Tous droits réservés.",
+  "countdown": {
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "seconds": "Secondes"
+  },
+  "gemini": {
+    "buttonText": "✨ Pourquoi est-ce important ?",
+    "loadingText": "Analyse en cours...",
+    "modalTitle": "L'IA dans le Secteur Public",
+    "sourcesTitle": "Sources (via Google Search)",
+    "errorText": "Une erreur est survenue lors de la récupération des informations. Veuillez réessayer plus tard.",
+    "previewButton": "✨ Prévisualiser la notification",
+"previewLoading": "Rédaction en cours...",
+"previewTitle": "Votre Notification de Lancement",
+    "emailSuccess": "Merci ! Votre e-mail a été enregistré.",
+    "emailExists": "Cet e-mail est déjà dans notre liste.",
+    "emailInvalid": "Veuillez entrer une adresse e-mail valide.",
+    "emailError": "Une erreur est survenue. Veuillez réessayer."
+  }
+}
+

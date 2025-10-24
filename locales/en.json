@@ -1,0 +1,31 @@
+{
+  "lang": "en",
+  "title": "GouvGPT.com - Coming Soon",
+  "headline": "Coming Soon",
+  "description": "The unified global portal for government AI assistants and chatbots.",
+  "notifyLabel": "Get notified on official launch:",
+  "emailPlaceholder": "Your email address",
+  "notifyButton": "Notify Me",
+  "footerText": "© 2025 GouvGPT.com. All rights reserved.",
+  "countdown": {
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
+  "gemini": {
+    "buttonText": "✨ Why is this important?",
+    "loadingText": "Analyzing...",
+    "modalTitle": "AI in the Public Sector",
+    "sourcesTitle": "Sources (via Google Search)",
+    "errorText": "An error occurred while fetching information. Please try again later.",
+    "previewButton": "✨ Preview the notification",
+"previewLoading": "Drafting...",
+"previewTitle": "Your Launch Notification",
+    "emailSuccess": "Thank you! Your email has been registered.",
+    "emailExists": "This email is already on our list.",
+    "emailInvalid": "Please enter a valid email address.",
+    "emailError": "An error occurred. Please try again."
+  }
+}
+

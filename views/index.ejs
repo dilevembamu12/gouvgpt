@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="<%= t.lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= t.title %></title>
+    
+    <!-- Scripts externes (Tailwind, Polices) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lien vers notre feuille de style statique -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Injection des traductions pour le JS client -->
+    <script>
+        // Met les traductions à disposition du script /js/main.js
+        const translations = <%- translations %>;
+        // Met la langue actuelle à disposition
+        const currentLang = '<%= currentLang %>';
+    </script>
+</head>
+<body class="text-gray-200 h-screen w-full flex items-center justify-center p-4">
+
+    <main class="max-w-2xl w-full mx-auto text-center">
+        <!-- Carte principale -->
+        <div class="glass-card rounded-2xl shadow-2xl p-8 md:p-12">
+            
+            <!-- Titre -->
+            <h1 class="flex items-center justify-center gap-3 text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>GouvGPT.com</span>
+            </h1>
+
+            <!-- Titre et description (traduits) -->
+            <h2 id="headline" class="text-3xl md:text-4xl font-bold text-white mb-4"><%= t.headline %></h2>
+            <p id="description" class="text-lg md:text-xl text-gray-300 mb-8"><%= t.description %></p>
+
+            <!-- Compte à rebours -->
+            <div id="countdown" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="countdown-segment p-4 rounded-lg flex flex-col items-center justify-center">
+                    <span id="days" class="text-5xl md:text-6xl font-extrabold text-white">00</span>
+                    <span id="label-days" class="text-sm md:text-base text-blue-200 font-medium"><%= t.countdown.days %></span>
+                </div>
+                <div class="countdown-segment p-4 rounded-lg flex flex-col items-center justify-center">
+                    <span id="hours" class="text-5xl md:text-6xl font-extrabold text-white">00</span>
+                    <span id="label-hours" class="text-sm md:text-base text-blue-200 font-medium"><%= t.countdown.hours %></span>
+                </div>
+                <div class="countdown-segment p-4 rounded-lg flex flex-col items-center justify-center">
+                    <span id="minutes" class="text-5xl md:text-6xl font-extrabold text-white">00</span>
+                    <span id="label-minutes" class="text-sm md:text-base text-blue-200 font-medium"><%= t.countdown.minutes %></span>
+                </div>
+                <div class="countdown-segment p-4 rounded-lg flex flex-col items-center justify-center">
+                    <span id="seconds" class="text-5xl md:text-6xl font-extrabold text-white">00</span>
+                    <span id="label-seconds" class="text-sm md:text-base text-blue-200 font-medium"><%= t.countdown.seconds %></span>
+                </div>
+            </div>
+
+            <!-- Sélecteur de langue -->
+            <div class="flex justify-center gap-2 my-8">
+                <button 
+                    id="btn-fr" 
+                    onclick="setLanguage('fr')" 
+                    class="lang-btn px-4 py-2 rounded-lg text-sm font-medium border border-blue-600 text-blue-300 transition-all duration-300 hover:bg-blue-600 hover:text-white">
+                    Français
+                </button>
+                <button 
+                    id="btn-en" 
+                    onclick="setLanguage('en')" 
+                    class="lang-btn px-4 py-2 rounded-lg text-sm font-medium border border-gray-600 text-gray-400 transition-all duration-300 hover:bg-gray-600 hover:text-white">
+                    English
+                </button>
+            </div>
+
+            <!-- Formulaire de notification -->
+            <div>
+                <label id="notify-label" for="email" class="block text-base font-medium text-gray-300 mb-3"><%= t.notifyLabel %></label>
+                <!-- Modification : suppression de onsubmit="" et ajout d'un id="notify-form" -->
+                <form id="notify-form" class="flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="email" 
+                        id="email-placeholder"
+                        placeholder="<%= t.emailPlaceholder %>"
+                        class="flex-grow w-full px-4 py-3 rounded-lg bg-gray-800/70 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    >
+                    <button 
+                        type="submit" 
+                        id="notify-button"
+                        class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                        <!-- Le texte du bouton est maintenant dynamique -->
+                        <span id="notify-button-text"><%= t.notifyButton %></span>
+                        <div id="notify-spinner" class="spinner hidden mx-auto"></div>
+                    </button>
+                </form>
+                <!-- NOUVEAU : Zone pour les messages de statut -->
+                <div id="notify-message" class="text-sm text-center mt-3 h-5"></div>
+            </div>
+
+            <!-- Boutons Gemini -->
+            <div class="mt-4" style="display: none;">
+                <button
+                    id="preview-button"
+                    class="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-lg bg-transparent border border-green-400 text-green-300 font-semibold shadow-lg transition-all duration-300 hover:bg-green-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <span id="preview-button-text"><%= t.gemini.previewButton %></span>
+                    <div id="preview-spinner" class="spinner hidden"></div>
+                </button>
+            </div>
+            <div class="mt-4"> 
+                <button
+                    id="gemini-button"
+                    class="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-lg bg-transparent border border-blue-400 text-blue-300 font-semibold shadow-lg transition-all duration-300 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <span id="gemini-button-text"><%= t.gemini.buttonText %></span>
+                    <div id="gemini-spinner" class="spinner hidden"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8">
+            <p id="footer-text" class="text-sm text-white-500"><%= t.footerText %></p>
+        </footer>
+    </main>
+
+    <!-- Modal pour les réponses Gemini -->
+    <div id="gemini-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div id="modal-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="glass-card relative z-10 w-full max-w-2xl rounded-2xl shadow-2xl p-8 md:p-12 text-left">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-bold text-white mb-4"></h3>
+            <div id="gemini-response" class="text-gray-300 space-y-4 mb-6" style="white-space: pre-wrap; max-height: 40vh; overflow-y: auto;">
+                <!-- Contenu de Gemini -->
+            </div>
+            <div id="gemini-sources-container" class="hidden">
+                <h4 id="sources-title" class="text-lg font-semibold text-white mb-2"><%= t.gemini.sourcesTitle %></h4>
+                <ul id="gemini-sources" class="text-sm text-blue-300 space-y-2" style="max-height: 20vh; overflow-y: auto;">
+                    <!-- Sources de Gemini -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lien vers notre script client statique -->
+    <!-- 'defer' s'assure que le script s'exécute après le chargement du HTML -->
+    <script src="/js/main.js" defer></script>
+</body>
+</html>
+
