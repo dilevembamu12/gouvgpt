@@ -1,10 +1,15 @@
-/* Police par défaut */
+/* public/css/style.css */
+
+/* --- Styles Globaux --- */
 body {
     font-family: 'Inter', sans-serif;
+    /* Le fond est géré page par page (index vs home) */
 }
 
-/* Fond d'écran principal */
-body {
+/* --- Styles pour "Coming Soon" (index.ejs) --- */
+/* Ces styles sont utilisés si le body a l'image de fond */
+/* NOTE: La classe 'coming-soon' est ajoutée dans app.js pour la route '/' */
+body.coming-soon {
     /* REMPLACEZ CECI par le chemin vers votre image de fond */
     /* L'image doit être placée dans /public/images/background.jpg */
     background-image: url('/images/background.jpg'); 
@@ -15,8 +20,7 @@ body {
     position: relative;
 }
 
-/* Superposition de motif et de dégradé */
-body::before {
+body.coming-soon::before {
     content: '';
     position: absolute;
     top: 0;
@@ -31,7 +35,7 @@ body::before {
     z-index: -1; /* Se place derrière le contenu */
 }
 
-/* Style de la carte en verre */
+/* Style de la carte en verre ("Coming Soon") */
 .glass-card {
     background: rgba(17, 24, 39, 0.6);
     backdrop-filter: blur(12px);
@@ -39,18 +43,53 @@ body::before {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Bouton de langue actif */
+/* Bouton de langue actif ("Coming Soon") */
 .lang-btn.active {
     background-color: #2563eb;
     color: #ffffff;
     font-weight: 700;
 }
 
-/* Segments du compte à rebours */
+/* Segments du compte à rebours ("Coming Soon") */
 .countdown-segment {
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(59, 130, 246, 0.2));
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
+
+/* --- Styles pour "Home" (home.ejs) & (country-detail.ejs) --- */
+
+/* Style pour le header (utilisé par le parallax JS sur home.ejs) */
+#main-header-home {
+    background-color: rgba(255, 255, 255, 0); /* Transparent par défaut */
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Pas d'ombre par défaut */
+    /* Pas de 'transition-all' ici, car JS gère le fade en direct */
+}
+
+/* Style pour l'icône de recherche (utilisé par JS sur home.ejs) */
+#search-bar-container:focus-within .search-icon-focus {
+    color: #2563eb; /* text-blue-600 */
+}
+
+/* Style pour les filtres actifs (utilisé par JS sur home.ejs) */
+.filter-btn-active {
+    background-color: #dbeafe; /* bg-blue-100 */
+    border-color: #2563eb; /* border-blue-600 */
+    color: #1d4ed8; /* text-blue-800 */
+    font-weight: 600; /* semibold */
+}
+
+/* Effet de "soulèvement" (lift) au survol pour les cartes */
+.card-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+}
+
+
+/* --- Styles Partagés (Spinner, Modal) --- */
 
 /* Spinner de chargement */
 .spinner {
@@ -65,14 +104,8 @@ body::before {
     to { transform: rotate(360deg); }
 }
 
-
-
-/* Spinner de chargement */
-.spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-left-color: #ffffff;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
+/* Classe pour cacher la modale (utilisé par country-detail.js) */
+.modal-hidden {
+    display: none;
 }
+
